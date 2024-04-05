@@ -72,6 +72,10 @@ function readNycOptions(workingDirectory) {
     }
   }
 
+  const nycEnv = {};
+  if (process.env.TEMP_DIR) nycEnv["temp-dir"] = process.env.TEMP_DIR.trim();
+  if (process.env.REPORT_DIR) nycEnv["report-dir"] = process.env.REPORT_DIR.trim();
+
   const nycOptions = combineNycOptions(
     defaultNycOptions,
     nycrc,
@@ -80,7 +84,8 @@ function readNycOptions(workingDirectory) {
     nycrcYml,
     nycConfig,
     nycConfigCommonJs,
-    pkgNycOptions
+    pkgNycOptions,
+    nycEnv
   )
   debug('combined NYC options %o', nycOptions)
 
